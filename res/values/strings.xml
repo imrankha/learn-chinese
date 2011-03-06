@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xuezhongwen">学中文</string>
+    <string name="app_name">Learning Chinese 学中文</string>
+    <string name="pinyin">拼音</string>
+    <string name="hanzi">汉字</string>
+    <string name="previous_text">&lt;</string>
+    <string name="next_text">&gt;</string>
+</resources>
