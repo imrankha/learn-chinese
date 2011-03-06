@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/background"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="30dip">
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_gravity="center" >
+		<TextView  	
+	    	android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_gravity="center"
+	    	android:layout_marginBottom="25dip"
+	    	android:text="@string/xuezhongwen"
+	    	android:textSize="35sp"
+	    	android:textColor="@color/title" />
+	   	<Button
+	   		android:id="@+id/pinyin"
+	   		android:layout_width="fill_parent"
+	   		android:layout_height="wrap_content"
+	   		android:layout_margin="10dip"
+	   		android:text="@string/pinyin"/>
+	   	<Button
+	   		android:id="@+id/hanzi"
+	   		android:layout_width="fill_parent"
+	   		android:layout_height="wrap_content"
+	   		android:layout_margin="10dip"
+	   		android:text="@string/hanzi"/>	
+	</LinearLayout>
+</LinearLayout>

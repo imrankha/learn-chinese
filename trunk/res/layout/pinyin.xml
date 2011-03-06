@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/pinyin_bkgrd"
+    android:id="@+id/pinyin_layout">
+    <TextView android:id="@+id/pinyin_index"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_centerHorizontal="true"
+    	android:textSize="25sp"/>
+    <TextSwitcher android:id="@+id/pinyin_switcher"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pinyin_index" 
+        android:layout_centerInParent="true" />
+    <TextView android:id="@+id/place_holder_py"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentBottom="true"
+    	android:layout_centerHorizontal="true"/>
+    <Button android:id="@+id/previous_py"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content" 
+        android:text="@string/previous_text"
+        android:textSize="25sp"
+        android:layout_toLeftOf = "@id/place_holder_py" 
+        android:layout_alignBottom="@id/place_holder_py"/>
+    <Button android:id="@+id/next_py"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content" 
+        android:text="@string/next_text"
+        android:textSize="25sp"
+        android:layout_toRightOf ="@id/place_holder_py"
+        android:layout_alignBottom="@id/place_holder_py"/>
+</RelativeLayout>

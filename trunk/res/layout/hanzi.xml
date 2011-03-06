@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView android:id="@+id/hanzi_text"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/hanzi" 
+    	android:textSize="25sp"/>
+    <TextSwitcher android:id="@+id/hanzi_switcher"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hanzi_text" 
+        android:layout_centerInParent="true" />
+    <Button android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:text="@string/previous_text"
+        android:layout_below="@id/hanzi_switcher" 
+        android:layout_centerHorizontal="true"/>
+    <Button android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:text="@string/next_text" 
+        android:layout_toRightOf ="@id/previous"
+        android:layout_alignTop="@id/previous"/>
+</RelativeLayout>
