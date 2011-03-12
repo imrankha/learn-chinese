@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:enabled="true" android:title="声母"  android:visible="true" android:id="@+id/consonants" />
+    <item android:title="韵母" android:id="@+id/vowels" />
+    <item android:title="全部" android:id="@+id/all_pinyin" />
+</menu>
