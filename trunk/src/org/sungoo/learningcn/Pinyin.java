@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -24,10 +27,8 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 	private int mIndex = 0;
 	private Animation in, out;
 	private PinYinTable mPinyinTable;
-	private String[] mAllPinyin;
-	private int mAllPinyinSize;
 	private TextView mIndexText;
-	private Boolean mToastShown;
+	private Boolean mToastShown = false;
 	private float downXValue;
 
     private MediaPlayer song1;
@@ -49,22 +50,19 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
         // Add Touch listener for Pinyin layout.
         RelativeLayout pinyinLayout = (RelativeLayout) findViewById(R.id.pinyin_layout);
         pinyinLayout.setOnTouchListener(this);
-        mPinyinTable = new PinYinTable();
-        mAllPinyin = mPinyinTable.getAllInOrder();
-        mAllPinyinSize = mPinyinTable.getAllSize();
+        mPinyinTable = new AllPinyinTable();
 
         song1 = MediaPlayer.create(this, R.raw.jay);
         
         mIndexText = (TextView) findViewById(R.id.pinyin_index);
         updateWord();
-     
     }
     
     private void updateWord() {
-    	mSwitcher.setText(mAllPinyin[mIndex]);
-    	mIndexText.setText(Integer.toString(mIndex + 1) + "/" + Integer.toString(mAllPinyinSize));
-		song1.seekTo(0);
-		song1.start();
+    	mSwitcher.setText(mPinyinTable.getPinyinAt(mIndex));
+    	mIndexText.setText(Integer.toString(mIndex + 1) + "/" + Integer.toString(mPinyinTable.getAllSize()));
+		//song1.seekTo(0);
+		//song1.start();
 	}
 
 	public void onClick(View v) {
@@ -123,7 +121,7 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 	}
 
 	private void showNext() {
-		if (mIndex < mAllPinyinSize - 1) {
+		if (mIndex < mPinyinTable.getAllSize() - 1) {
 			mToastShown = false;
 			mIndex += 1;
 	        in = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
@@ -138,4 +136,39 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 			}
 		}
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+    	mIndex = 0;	        
+
+    	boolean status = false;
+    	// Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.vowels:
+	    	mPinyinTable = new VowelsTable();
+	        status = true;
+	        break;
+	    case R.id.consonants:
+	    	mPinyinTable = new ConsonantsTable();
+	        status = true;
+	        break;
+	    case R.id.all_pinyin:
+	    	mPinyinTable = new AllPinyinTable();
+	        status = true;
+	        break;
+	    default:
+	        status = super.onOptionsItemSelected(item);
+	    }
+	    
+	    updateWord();
+	    return status;
+	}
+	
+	// Create the menu
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.pinyin_menu, menu);
+        return true;
+    }
 }
