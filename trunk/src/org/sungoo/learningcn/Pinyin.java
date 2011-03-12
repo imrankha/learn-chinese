@@ -1,6 +1,10 @@
 package org.sungoo.learningcn;
 
+import java.io.IOException;
+
 import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -17,7 +21,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
@@ -28,11 +31,11 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 	private Animation in, out;
 	private PinYinTable mPinyinTable;
 	private TextView mIndexText;
-	private Boolean mToastShown = false;
 	private float downXValue;
 
-    private MediaPlayer song1;
-
+    private MediaPlayer mp;
+    private AssetManager am;
+        
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,27 +54,79 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
         RelativeLayout pinyinLayout = (RelativeLayout) findViewById(R.id.pinyin_layout);
         pinyinLayout.setOnTouchListener(this);
         mPinyinTable = new AllPinyinTable();
-
-        song1 = MediaPlayer.create(this, R.raw.jay);
         
         mIndexText = (TextView) findViewById(R.id.pinyin_index);
-        updateWord();
-    }
+        mp = new MediaPlayer();
+        am = getResources().getAssets();
+        
+        try {
+			updateWord();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     
-    private void updateWord() {
-    	mSwitcher.setText(mPinyinTable.getPinyinAt(mIndex));
+    private void updateWord() throws IllegalArgumentException, IllegalStateException, IOException {
+    	String curr = mPinyinTable.getPinyinAt(mIndex);
+    	mSwitcher.setText(curr);
     	mIndexText.setText(Integer.toString(mIndex + 1) + "/" + Integer.toString(mPinyinTable.getAllSize()));
-		//song1.seekTo(0);
-		//song1.start();
+    	
+    	String fn = getFileName(curr);
+    	AssetFileDescriptor afd = am.openFd(fn + ".mp3");
+    	afd.toString();
+    	afd.getLength();
+    	mp.reset();
+    	mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+    	mp.prepare();
+		mp.start();
+	}
+
+	private String getFileName(String curr) {
+		if (curr == "ü") {
+			return "v";
+		} else if(curr == "ün") {
+			return "vn";
+		} else {
+			return curr;
+		}
 	}
 
 	public void onClick(View v) {
     	switch (v.getId()) {
     	case R.id.previous_py:
-    		showPrevious();
+    		try {
+				showPrevious();
+			} catch (IllegalArgumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     		break;
     	case R.id.next_py:
-    		showNext();
+    		try {
+				showNext();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		break;
     	}		
     }
@@ -93,9 +148,31 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 		case MotionEvent.ACTION_UP:
 			float currentX = event.getX();
 			if (downXValue < currentX) {
-				showPrevious();
+				try {
+					showPrevious();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else if (downXValue > currentX) {
-				showNext();
+				try {
+					showNext();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			break;
 		}
@@ -103,38 +180,30 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 		return true;
 	}
 
-	private void showPrevious() {
+	private void showPrevious() throws IllegalArgumentException, IllegalStateException, IOException {
+        in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+        out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+        mSwitcher.setInAnimation(in);
+        mSwitcher.setOutAnimation(out);
 		if (mIndex > 0) {
-			mToastShown = false;
 			mIndex -= 1;	
-	        in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-	        out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
-	        mSwitcher.setInAnimation(in);
-	        mSwitcher.setOutAnimation(out);
-			updateWord();
 		} else {
-			if (!mToastShown) {
-				Toast.makeText(Pinyin.this, "1st", Toast.LENGTH_SHORT).show();
-				mToastShown = true;
-			}
+			mIndex = mPinyinTable.getAllSize() - 1;
 		}
+		updateWord();
 	}
 
-	private void showNext() {
+	private void showNext() throws IllegalArgumentException, IllegalStateException, IOException {
+        in = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
+        out = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
+        mSwitcher.setInAnimation(in);
+        mSwitcher.setOutAnimation(out);
 		if (mIndex < mPinyinTable.getAllSize() - 1) {
-			mToastShown = false;
 			mIndex += 1;
-	        in = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
-	        out = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
-	        mSwitcher.setInAnimation(in);
-	        mSwitcher.setOutAnimation(out);
-			updateWord();
 		} else {
-			if (!mToastShown) {
-				Toast.makeText(Pinyin.this, "last", Toast.LENGTH_SHORT).show();
-				mToastShown = true;
-			}
+			mIndex = 0;
 		}
+		updateWord();
 	}
 	
 	@Override
@@ -160,7 +229,18 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 	        status = super.onOptionsItemSelected(item);
 	    }
 	    
-	    updateWord();
+	    try {
+			updateWord();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    return status;
 	}
 	
