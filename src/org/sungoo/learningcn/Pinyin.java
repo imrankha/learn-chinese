@@ -79,7 +79,7 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
     	mIndexText.setText(Integer.toString(mIndex + 1) + "/" + Integer.toString(mPinyinTable.getAllSize()));
     	
     	String fn = getFileName(curr);
-    	AssetFileDescriptor afd = am.openFd(fn + ".mp3");
+    	AssetFileDescriptor afd = am.openFd("pinyin/" + fn + ".mp3");
     	afd.toString();
     	afd.getLength();
     	mp.reset();
@@ -93,6 +93,8 @@ public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 			return "v";
 		} else if(curr == "ün") {
 			return "vn";
+		} else if (curr == "üe") {
+			return "ve";
 		} else {
 			return curr;
 		}
