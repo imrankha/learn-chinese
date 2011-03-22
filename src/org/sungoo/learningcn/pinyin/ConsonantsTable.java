@@ -1,4 +1,5 @@
-package org.sungoo.learningcn;
+package org.sungoo.learningcn.pinyin;
+
 
 public class ConsonantsTable extends AbstractPinyinTable {
 

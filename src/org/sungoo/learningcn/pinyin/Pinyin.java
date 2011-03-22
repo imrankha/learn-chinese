@@ -1,4 +1,4 @@
-package org.sungoo.learningcn;
+package org.sungoo.learningcn.pinyin;
 
 import java.io.IOException;
 
@@ -22,6 +22,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
+import org.sungoo.learningcn.R;
+import org.sungoo.learningcn.R.anim;
+import org.sungoo.learningcn.R.id;
+import org.sungoo.learningcn.R.layout;
+import org.sungoo.learningcn.R.menu;
+import org.sungoo.learningcn.R.raw;
 
 public class Pinyin extends Activity implements ViewSwitcher.ViewFactory,
 	View.OnClickListener, OnTouchListener {

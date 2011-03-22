@@ -14,9 +14,9 @@
             </intent-filter>
         </activity>
 
-    	<activity android:name="Pinyin">
+    	<activity android:name=".pinyin.Pinyin">
     	</activity>
-        <activity android:name="Hanzi"
+        <activity android:name=".hanzi.Hanzi"
         	android:label="@string/hanzi">
         </activity>
   </application>

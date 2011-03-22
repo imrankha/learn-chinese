@@ -1,4 +1,5 @@
-package org.sungoo.learningcn;
+package org.sungoo.learningcn.pinyin;
+
 
 public abstract class AbstractPinyinTable implements PinYinTable {
         protected static final String[] vowels = {
