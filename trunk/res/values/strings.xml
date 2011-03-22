@@ -6,4 +6,6 @@
     <string name="hanzi">汉字</string>
     <string name="previous_text">&lt;</string>
     <string name="next_text">&gt;</string>
+    <string name="first_text">&lt;&lt;</string>
+    <string name="last_text">&gt;&gt;</string>
 </resources>

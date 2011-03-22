@@ -1,5 +1,8 @@
 package org.sungoo.learningcn;
 
+import org.sungoo.learningcn.hanzi.Hanzi;
+import org.sungoo.learningcn.pinyin.Pinyin;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package org.sungoo.learningcn;
+package org.sungoo.learningcn.pinyin;
 
 public interface PinYinTable {
 	// Get pinyin with a index

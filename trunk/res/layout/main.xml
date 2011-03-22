@@ -16,7 +16,7 @@
 	    	android:layout_gravity="center"
 	    	android:layout_marginBottom="25dip"
 	    	android:text="@string/xuezhongwen"
-	    	android:textSize="35sp"
+	    	android:textSize="30sp"
 	    	android:textColor="@color/title" />
 	   	<Button
 	   		android:id="@+id/pinyin"
