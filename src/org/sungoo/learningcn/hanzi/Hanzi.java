@@ -51,7 +51,7 @@ public class Hanzi extends Activity implements ViewSwitcher.ViewFactory,
         // Add Touch listener for hanzi layout.
         RelativeLayout hanziLayout = (RelativeLayout) findViewById(R.id.hanzi_layout);
         hanziLayout.setOnTouchListener(this);
-        mHanziTable = new HanziTable();
+        mHanziTable = new AllHanziTable();
         
         mIndexText = (TextView) findViewById(R.id.hanzi_index);
         updateWord();
@@ -111,7 +111,7 @@ public class Hanzi extends Activity implements ViewSwitcher.ViewFactory,
 
 	private void showPrevious() {
 		mIndex -= 1;	
-		mIndex = mHanziTable.getCircularIndex(mIndex);
+		mIndex = ((AbstractHanziTable) mHanziTable).getCircularIndex(mIndex);
         in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
         out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
         mSwitcher.setInAnimation(in);
@@ -121,7 +121,7 @@ public class Hanzi extends Activity implements ViewSwitcher.ViewFactory,
 
 	private void showNext() {
 		mIndex += 1;
-		mIndex = mHanziTable.getCircularIndex(mIndex);
+		mIndex = ((AbstractHanziTable) mHanziTable).getCircularIndex(mIndex);
 		in = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
         out = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
         mSwitcher.setInAnimation(in);
