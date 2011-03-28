@@ -8,7 +8,7 @@ public abstract class AbstractPinyinTable implements PinYinTable {
                 "e",
                 "i",
                 "u",
-                "Ÿ",
+                "ü",
                 "ai",
                 "ei",
                 "ui",
@@ -16,13 +16,13 @@ public abstract class AbstractPinyinTable implements PinYinTable {
                 "ou",
                 "iu",
                 "ie",
-                "Ÿe",
+                "üe",
                 "er",
                 "an",
                 "en",
                 "in",
                 "un",
-                "Ÿn",
+                "ün",
                 "ang",
                 "eng",
                 "ing",
@@ -58,7 +58,7 @@ public abstract class AbstractPinyinTable implements PinYinTable {
     public abstract int getAllSize();
     
     // Avoid out of bound array index
-    protected int getCircularIndex(int index) {
+    public int getCircularIndex(int index) {
     	final int SIZE = getAllSize();
     	if (index < 0 || index >= SIZE) {
     		return (index + SIZE) % SIZE;
