@@ -1,0 +1,16 @@
+9/16/2012
+ - Changed AllHanziTable.java to read hanzi from a file.
+ 
+ 9/22/2012
+  - Add input box and check button
+  - problem:
+   1) Layout gets screwed when Chinese IME shows up. (android:windowSoftInputMode didn't help)
+   2) Hanzi still switch with animation when word-checking succeeds
+   
+ 9/23/2012
+  - Add fail/success sounds
+  - Fix IME scroll problem (android:windowSoftInputMode="adjustResize" in Hanzi Activity).
+ 
+ 9/28/2012
+  - reduce Chinese font size to 50
+    
