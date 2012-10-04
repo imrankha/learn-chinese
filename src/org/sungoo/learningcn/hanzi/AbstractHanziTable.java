@@ -4,16 +4,16 @@ import org.sungoo.learningcn.hanzi.HanziTable;
 
 public abstract class AbstractHanziTable implements HanziTable {
     protected static final String[] hanzi = {
-            "的",
-            "一",
-            "他",
-            "我",
-            "是",
-            "了",
-            "不",
-            "在",
-            "这",
+            "大为",
+            "小云",
+            "云",
+            "白",
+            "山",
+            "风",
+            "口",
             "人",
+            "水",
+            "火",
     };
     public abstract String[] getAllInOrder();
     public abstract int getAllSize();

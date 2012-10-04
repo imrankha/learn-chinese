@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/hanzi_index" 
         android:layout_centerInParent="true" />
-    <TextView android:id="@+id/hanzi_place_holder_py"
+
+	<TextView android:id="@+id/hanzi_place_holder_py"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
     	android:layout_alignParentBottom="true"
@@ -45,6 +46,29 @@
         android:layout_height="wrap_content" 
         android:text="@string/last_text"
         android:textSize="25sp"
-        android:layout_toRightOf = "@id/hanzi_next_py" 
+        android:layout_toRightOf = "@id/hanzi_next_py"
         android:layout_alignBottom="@id/hanzi_place_holder_py"/>
+    
+    <EditText
+        android:id="@+id/hanzi_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    	android:inputType="text"
+    	android:imeOptions="actionNext"
+        android:layout_above="@+id/hanzi_previous_py"
+        android:layout_centerHorizontal="true"
+	    android:windowSoftInputMode="stateVisible"
+        android:ems="10" >
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/check_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hanzi_input"
+        android:layout_alignParentRight="true"
+	    android:windowSoftInputMode="stateVisible"
+        android:text="Go" />
+
 </RelativeLayout>
