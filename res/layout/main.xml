@@ -30,5 +30,11 @@
 	   		android:layout_height="wrap_content"
 	   		android:layout_margin="10dip"
 	   		android:text="@string/hanzi"/>	
-	</LinearLayout>
+	   	<Button
+	   		android:id="@+id/math"
+	   		android:layout_width="fill_parent"
+	   		android:layout_height="wrap_content"
+	   		android:layout_margin="10dip"
+	   		android:text="@string/math"/>	
+	   		</LinearLayout>
 </LinearLayout>
