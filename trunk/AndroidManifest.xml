@@ -16,11 +16,16 @@
 
     	<activity android:name=".pinyin.Pinyin">
     	</activity>
+        
         <activity android:name=".hanzi.Hanzi"
         	android:label="@string/hanzi"
         	android:windowSoftInputMode="adjustResize">
         </activity>
-  </application>
-
+        
+        <activity android:name=".math.MathView"
+        	android:label="@string/math"
+        	android:windowSoftInputMode="adjustResize">
+        </activity>
+    </application>
 
 </manifest> 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/pinyin_bkgrd"
+    android:id="@+id/math_layout">
+    <TextView android:id="@+id/math_index"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_centerHorizontal="true"
+    	android:textSize="25sp"/>
+    <TextSwitcher android:id="@+id/math_switcher"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/math_index" 
+        android:layout_centerInParent="true" />
+
+	<TextView android:id="@+id/math_place_holder_py"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentBottom="true"
+    	android:layout_centerHorizontal="true"/>
+    <Button android:id="@+id/math_previous_py"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content" 
+        android:text="@string/previous_text"
+        android:textSize="25sp"
+        android:layout_toLeftOf = "@id/math_place_holder_py" 
+        android:layout_alignBottom="@id/math_place_holder_py"/>
+    <Button android:id="@+id/math_first_py"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content" 
+        android:text="@string/first_text"
+        android:textSize="25sp"
+        android:layout_toLeftOf = "@id/math_previous_py" 
+        android:layout_alignBottom="@id/math_place_holder_py"/>
+    <Button android:id="@+id/math_next_py"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content" 
+        android:text="@string/next_text"
+        android:textSize="25sp"
+        android:layout_toRightOf ="@id/math_place_holder_py"
+        android:layout_alignBottom="@id/math_place_holder_py"/>
+    <Button android:id="@+id/math_last_py"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content" 
+        android:text="@string/last_text"
+        android:textSize="25sp"
+        android:layout_toRightOf = "@id/math_next_py"
+        android:layout_alignBottom="@id/math_place_holder_py"/>
+    
+    <EditText
+        android:id="@+id/math_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    	android:inputType="text"
+    	android:imeOptions="actionNext"
+        android:layout_above="@+id/math_previous_py"
+        android:layout_centerHorizontal="true"
+	    android:windowSoftInputMode="stateVisible"
+        android:ems="10" >
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/math_check_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/math_input"
+        android:layout_alignParentRight="true"
+	    android:windowSoftInputMode="stateVisible"
+        android:text="Go" />
+
+</RelativeLayout>

@@ -20,7 +20,7 @@ public class AllHanziTable extends AbstractHanziTable {
     private final List<String> allHanzi = new ArrayList<String>();
 
     public AllHanziTable(Context appContext) {
-//    	SaveLabels(appContext);
+//    	SaveHanziToFile(appContext);
     	readHanziFromFile(appContext);
     }
 
@@ -47,7 +47,7 @@ public class AllHanziTable extends AbstractHanziTable {
 		}
 	}	
 
-	void SaveLabels(Context context) {
+	void SaveHanziToFile(Context context) {
 		try {
 			String externalFileName = context.getExternalFilesDir(null) + LABEL_FILE;
 			System.out.println("Write file=" + externalFileName);
