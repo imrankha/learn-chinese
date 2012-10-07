@@ -69,7 +69,7 @@ public class MathView extends Activity implements ViewSwitcher.ViewFactory,
         mMathTable = new MathTable();
         
         mIndexText = (TextView) findViewById(R.id.math_index);
-        updateWord(false);
+        updateWord();
         createEditor();
     }
  
@@ -78,7 +78,7 @@ public class MathView extends Activity implements ViewSwitcher.ViewFactory,
     	mEditText.setOnEditorActionListener(new OnEditorActionListener() {
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
-			    System.out.print("actionId=" +actionId + ", event=" + event.getAction());
+			    System.out.print("actionId=" +actionId + ", event=" + (event==null ? "null" : event.getAction()));
         	    
 				String word;
 				if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.KEYCODE_ENTER) {
@@ -95,15 +95,11 @@ public class MathView extends Activity implements ViewSwitcher.ViewFactory,
     	});
     }
     
-    private void updateWord(boolean playSound) {
+    private void updateWord() {
     	if (mAnswerMatched) {
         	mSwitcher.setText("");
-        	if (playSound)
-        		playSound("notification/success.mp3");
     	} else {
     		mSwitcher.setText(mMathTable.getQuestionAt(mIndex).toString());
-        	if (playSound)
-        		playSound("notification/fail.mp3");
     	}
     	mIndexText.setText(Integer.toString(mIndex + 1) + "/" + Integer.toString(mMathTable.getAllSize()));
 	}
@@ -145,11 +141,14 @@ public class MathView extends Activity implements ViewSwitcher.ViewFactory,
 	        String answer = mMathTable.getQuestionAt(mIndex).answer();
 	        System.out.println("word=" + word);
 	        System.out.println("math=" + answer);
-	        if (answer.equals(word))
+	        if (answer.equals(word)) {
 	        	mAnswerMatched = true;
-	        else
+	        	playSound("notification/success.mp3");
+	        } else {
 	        	mAnswerMatched = false;
-	        updateWord(true);
+	        	playSound("notification/fail.mp3");
+	        }
+	        updateWord();
 	        break;
 	     default:
 	    	 break;
@@ -191,7 +190,8 @@ public class MathView extends Activity implements ViewSwitcher.ViewFactory,
         out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
         mSwitcher.setInAnimation(in);
         mSwitcher.setOutAnimation(out);
-		updateWord(false);
+		updateWord();
+		mEditText.setText("");
 	}
 
 	private void showNext() {
@@ -202,6 +202,7 @@ public class MathView extends Activity implements ViewSwitcher.ViewFactory,
         out = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
         mSwitcher.setInAnimation(in);
         mSwitcher.setOutAnimation(out);
-		updateWord(false);
+		updateWord();
+		mEditText.setText("");
 	}
 }

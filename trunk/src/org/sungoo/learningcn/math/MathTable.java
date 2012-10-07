@@ -21,12 +21,12 @@ public class MathTable {
 		public int b() { return arg2; }
 		public int calc() { return a() + b();}
 		public String answer() { return "" + calc(); }
-		public String toString() { return "" + arg1 + "+" + arg2 + "=?"; } 
+		public String toString() { return "" + arg1 + "+" + arg2 + "="; } 
 	}
 	
 	private List<Question> allQuestions = new LinkedList<Question>();
 	private final int NUM_QUESTIONS = 10;
-	private final int NUMBER_RANGE = 10;
+	private final int NUMBER_RANGE = 6;
 	public MathTable() {
 		for (int i=0; i<NUM_QUESTIONS; i++) {
 			Addition q = new Addition();
