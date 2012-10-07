@@ -35,7 +35,12 @@ public class HanziEditor extends Activity implements View.OnClickListener {
 		mEditText = (EditText) findViewById(R.id.hanzi_editor_input);
 		Intent data = getIntent();
 		mHanziFile = data.getDataString();
-		mEditText.setText(readHanziFile());
+		String text = readHanziFile();
+		if (!text.isEmpty()) {
+			mEditText.setText(text);
+		} else {
+			mEditText.setHint("One word a line");
+		}
     }
     
     String readHanziFile() {
