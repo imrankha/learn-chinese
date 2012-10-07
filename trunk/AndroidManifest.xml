@@ -22,6 +22,11 @@
         	android:windowSoftInputMode="adjustResize">
         </activity>
         
+        <activity android:name=".hanzi.HanziEditor"
+        	android:label="@string/hanzi_editor"
+        	android:windowSoftInputMode="adjustResize">
+        </activity>
+        
         <activity android:name=".math.MathView"
         	android:label="@string/math"
         	android:windowSoftInputMode="adjustResize">

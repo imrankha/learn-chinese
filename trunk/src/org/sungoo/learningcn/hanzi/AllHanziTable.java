@@ -18,15 +18,21 @@ import android.content.Context;
 public class AllHanziTable extends AbstractHanziTable {
  	private static final String LABEL_FILE = "/hanzi.txt"; 
     private final List<String> allHanzi = new ArrayList<String>();
-
+    private final Context mAppContext;
+    
     public AllHanziTable(Context appContext) {
-//    	SaveHanziToFile(appContext);
-    	readHanziFromFile(appContext);
+//    	SaveHanziToFile();
+    	mAppContext = appContext;
+    	readHanziFromFile();
     }
 
-	void readHanziFromFile(Context context) {
+	public String getHanziFileName() {
+		return mAppContext.getExternalFilesDir(null) + LABEL_FILE;
+	}
+
+	void readHanziFromFile() {
 		try {
-			String externalFileName = context.getExternalFilesDir(null) + LABEL_FILE;
+			String externalFileName = getHanziFileName();
 			System.out.println("read file=" + externalFileName);
 			FileInputStream fin = new FileInputStream(new File(externalFileName));
 			BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -47,9 +53,9 @@ public class AllHanziTable extends AbstractHanziTable {
 		}
 	}	
 
-	void SaveHanziToFile(Context context) {
+	void SaveHanziToFile() {
 		try {
-			String externalFileName = context.getExternalFilesDir(null) + LABEL_FILE;
+			String externalFileName = getHanziFileName();
 			System.out.println("Write file=" + externalFileName);
 			FileOutputStream fos = new FileOutputStream(new File(externalFileName));
 			String [] labels = {" a", "b ",  "  "};
