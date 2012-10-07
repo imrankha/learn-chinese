@@ -32,6 +32,6 @@ public interface HanziTable  {
 //		return hanziList.length;
 //	}
 	
-//    protected static final String[] hanziList = {
-//    	"清","江","法","汇","洽","浮","汉","潼","洞","海","洋","油","游","滥","濑","濶","漷","淋","泠","泷","流","泪","滴","沙","漠","泪","渐","涨","潮","湿","浪","汗","深","洁","洗","澡","涌","泳","泽","冰","没","沫","泌","激","浮","洼","涡","汽","漆","泣","汔","液"};
+	// Return the name of the file that stores the Hanzi.
+	public String getHanziFileName();
 }

@@ -5,25 +5,36 @@ import java.io.IOException;
 import org.sungoo.learningcn.R;
 import org.sungoo.learningcn.R.id;
 import org.sungoo.learningcn.R.layout;
+import org.sungoo.learningcn.pinyin.AllPinyinTable;
+import org.sungoo.learningcn.pinyin.ConsonantsTable;
+import org.sungoo.learningcn.pinyin.Pinyin;
+import org.sungoo.learningcn.pinyin.VowelsTable;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Scroller;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -73,7 +84,7 @@ public class Hanzi extends Activity implements ViewSwitcher.ViewFactory,
         mHanziTable = new AllHanziTable(this.getApplicationContext());
         
         mIndexText = (TextView) findViewById(R.id.hanzi_index);
-        updateWord(false);
+        updateWord();
         createEditor();
     }
  
@@ -99,15 +110,41 @@ public class Hanzi extends Activity implements ViewSwitcher.ViewFactory,
     	});
     }
     
-    private void updateWord(boolean playSound) {
+	// Create the menu
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.hanzi_menu, menu);
+        return true;
+    }
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+    	mIndex = 0;	        
+
+    	boolean status = false;
+    	// Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.hanzi_editing:
+    		Intent intent = new Intent(this, HanziEditor.class);
+    		intent.setData(Uri.parse(mHanziTable.getHanziFileName()));
+    		startActivity(intent);
+	        status = true;
+	        break;
+	     default:
+	    	 status = true;
+	    	 break;
+	    }
+	    return status;
+	}
+
+	private void updateWord() {
     	if (mWordMatched) {
+            out = AnimationUtils.loadAnimation(this, R.anim.push_left_out);
+            mSwitcher.setOutAnimation(out);
         	mSwitcher.setText("");
-        	if (playSound)
-        		playSound("notification/success.mp3");
     	} else {
     		mSwitcher.setText(mHanziTable.getHanziAt(mIndex));
-        	if (playSound)
-        		playSound("notification/fail.mp3");
     	}
     	mIndexText.setText(Integer.toString(mIndex + 1) + "/" + Integer.toString(mHanziTable.getAllSize()));
 	}
@@ -149,11 +186,14 @@ public class Hanzi extends Activity implements ViewSwitcher.ViewFactory,
 	        String hanzi = mHanziTable.getHanziAt(mIndex);
 	        System.out.println("word=" + word);
 	        System.out.println("hanzi=" + hanzi);
-	        if (hanzi.equals(word))
+	        if (hanzi.equals(word)) {
 	        	mWordMatched = true;
-	        else
+	        	playSound("notification/success.mp3");
+	        } else {
 	        	mWordMatched = false;
-	        updateWord(true);
+	        	playSound("notification/fail.mp3");
+	        }
+	        updateWord();
 	        break;
 	     default:
 	    	 break;
@@ -195,7 +235,8 @@ public class Hanzi extends Activity implements ViewSwitcher.ViewFactory,
         out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
         mSwitcher.setInAnimation(in);
         mSwitcher.setOutAnimation(out);
-		updateWord(false);
+		updateWord();
+		mEditText.setText("");
 	}
 
 	private void showNext() {
@@ -206,6 +247,7 @@ public class Hanzi extends Activity implements ViewSwitcher.ViewFactory,
         out = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
         mSwitcher.setInAnimation(in);
         mSwitcher.setOutAnimation(out);
-		updateWord(false);
+		updateWord();
+		mEditText.setText("");
 	}
 }
